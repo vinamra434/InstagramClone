@@ -9,6 +9,8 @@ import com.mindorks.bootcamp.instagram.ui.signup.SignUpActivity
 import com.mindorks.bootcamp.instagram.ui.splash.SplashActivity
 import dagger.Component
 
+
+/*intermediate between activity/fragment view-model and its corresponding module*/
 @ActivityScope
 @Component(
     dependencies = [ApplicationComponent::class],

@@ -55,7 +55,7 @@ class LoginActivity : BaseActivity<LoginViewModel>() {
         super.setupObservers()
         // Event is used by the view model to tell the activity to launch another activity
         // view model also provided the Bundle in the event that is needed for the Activity
-        viewModel.launchMain.observe(this, Observer<Event<Map<String, String>>> {
+        viewModel.launchMain.observe(this, {
             it.getIfNotHandled()?.run {
                 startActivity(Intent(applicationContext, MainActivity::class.java))
                 finish()
@@ -79,7 +79,7 @@ class LoginActivity : BaseActivity<LoginViewModel>() {
             }
         })
 
-        viewModel.passwordField.observe(this, Observer {
+        viewModel.passwordField.observe(this, {
             if (et_password.text.toString() != it) et_email.setText(it)
         })
 
@@ -94,5 +94,4 @@ class LoginActivity : BaseActivity<LoginViewModel>() {
             pb_loading.visibility = if (it) View.VISIBLE else View.GONE
         })
     }
-
 }

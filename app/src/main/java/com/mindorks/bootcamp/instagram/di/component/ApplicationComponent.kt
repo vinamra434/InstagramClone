@@ -26,10 +26,10 @@ interface ApplicationComponent {
 
     fun inject(app: InstagramApplication)
 
-    fun getApplication(): Application
+    //fun getApplication(): Application
 
-    @ApplicationContext
-    fun getContext(): Context
+    //@ApplicationContext
+    //fun getContext(): Context
 
     /**
      * These methods are written in ApplicationComponent because the instance of
@@ -69,6 +69,5 @@ interface ApplicationComponent {
     fun getEditProfileBroadCast(): EditProfileBroadcast
 
     fun getPostDetailBroadCast(): PostDetailBroadcast
-
 
 }

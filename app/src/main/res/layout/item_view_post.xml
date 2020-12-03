@@ -33,10 +33,10 @@
             android:layout_height="38dp"
             android:layout_marginStart="16dp"
             android:scaleType="centerCrop"
-            tools:src="@drawable/ic_signup"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="ContentDescription" />
+            tools:ignore="ContentDescription"
+            tools:src="@drawable/ic_signup" />
 
         <ImageView
             android:id="@+id/ivPost"

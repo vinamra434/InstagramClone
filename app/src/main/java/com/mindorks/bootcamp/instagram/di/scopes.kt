@@ -2,7 +2,7 @@ package com.mindorks.bootcamp.instagram.di
 
 import javax.inject.Scope
 
-/**/
+/*annotation to acts as a bag*/
 
 @Scope
 @Retention(AnnotationRetention.SOURCE)
