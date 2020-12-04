@@ -18,6 +18,9 @@ import com.mindorks.bootcamp.instagram.utils.display.Toaster
 import com.mindorks.bootcamp.instagram.utils.log.Logger
 import javax.inject.Inject
 
+/*here we are giving lifecycle using LifeCyclerOwner and connecting it using baseadapter.
+* we are manually setting lifecycle of itemviewholder using lifecycle callback of adapter class
+* */
 abstract class BaseItemViewHolder<T : Any, VM : BaseItemViewModel<T>>(
     @LayoutRes layoutId: Int,
     parent: ViewGroup
@@ -33,6 +36,7 @@ abstract class BaseItemViewHolder<T : Any, VM : BaseItemViewModel<T>>(
     @Inject
     lateinit var viewModel: VM
 
+    /*using this we make itemviewholder lifecycler aware*/
     @Inject
     lateinit var lifecycleRegistry: LifecycleRegistry
 
@@ -42,30 +46,34 @@ abstract class BaseItemViewHolder<T : Any, VM : BaseItemViewModel<T>>(
         viewModel.updateData(data)
     }
 
+    /*https://developer.android.com/topic/libraries/architecture/lifecycle*/
     protected fun onCreate() {
         Logger.d("BaseItemViewHolder", "onCreate")
         injectDependencies(buildViewHolderComponent())
-        lifecycleRegistry.markState(Lifecycle.State.INITIALIZED)
-        lifecycleRegistry.markState(Lifecycle.State.CREATED)
+        lifecycleRegistry.currentState = (Lifecycle.State.INITIALIZED)
+        lifecycleRegistry.currentState = (Lifecycle.State.CREATED)
         setupObservers()
         setupView(itemView)
     }
 
+    /*https://developer.android.com/topic/libraries/architecture/lifecycle*/
     fun onStart() {
-        Logger.d("BaseItemViewHolder", "onCreate")
-        lifecycleRegistry.markState(Lifecycle.State.STARTED)
-        lifecycleRegistry.markState(Lifecycle.State.RESUMED)
+        Logger.d("BaseItemViewHolder", "onStart")
+        lifecycleRegistry.currentState = (Lifecycle.State.STARTED)
+        lifecycleRegistry.currentState = (Lifecycle.State.RESUMED)
     }
 
+    /*https://developer.android.com/topic/libraries/architecture/lifecycle*/
     fun onStop() {
         Logger.d("BaseItemViewHolder", "onStop")
-        lifecycleRegistry.markState(Lifecycle.State.STARTED)
-        lifecycleRegistry.markState(Lifecycle.State.CREATED)
+        lifecycleRegistry.currentState = (Lifecycle.State.STARTED)
+        lifecycleRegistry.currentState = (Lifecycle.State.CREATED)
     }
 
+    /*https://developer.android.com/topic/libraries/architecture/lifecycle*/
     fun onDestroy() {
         Logger.d("BaseItemViewHolder", "onDestroy")
-        lifecycleRegistry.markState(Lifecycle.State.DESTROYED)
+        lifecycleRegistry.currentState = (Lifecycle.State.DESTROYED)
     }
 
     private fun buildViewHolderComponent() =

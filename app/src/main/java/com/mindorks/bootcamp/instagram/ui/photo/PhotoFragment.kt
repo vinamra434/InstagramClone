@@ -66,6 +66,8 @@ class PhotoFragment : BaseFragment<PhotoViewModel>() {
                 mainSharedViewModel.onHomeRedirect()
             }
         })
+
+
     }
 
     private fun hideImageUploadDialog() {

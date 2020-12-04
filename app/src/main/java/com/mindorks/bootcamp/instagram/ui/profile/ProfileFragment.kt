@@ -179,8 +179,8 @@ class ProfileFragment : BaseFragment<ProfileViewModel>(), ClickListener {
                     it.imageWidth
                 )
             )
-
         })
+
 
         viewModel.refreshPosts.observe(this, Observer {
             it.data?.run {

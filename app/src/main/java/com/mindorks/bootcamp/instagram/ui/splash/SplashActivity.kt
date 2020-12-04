@@ -48,6 +48,7 @@ class SplashActivity : BaseActivity<SplashViewModel>() {
                 }, 1000)
             }
         })
+
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

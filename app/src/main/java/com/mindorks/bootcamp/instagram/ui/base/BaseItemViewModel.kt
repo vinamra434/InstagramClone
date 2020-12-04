@@ -13,6 +13,7 @@ abstract class BaseItemViewModel<T : Any>(
 
     val itemViewData: MutableLiveData<T> = MutableLiveData()
 
+    /*we have to manually call it based on lifecycle of parent*/
     fun onManualCleared() = onCleared()
 
     /*call whenever need to update any data in the list eg. remove like field, added like field*/

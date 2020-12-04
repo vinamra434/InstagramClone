@@ -53,8 +53,6 @@ class LoginActivity : BaseActivity<LoginViewModel>() {
 
     override fun setupObservers() {
         super.setupObservers()
-        // Event is used by the view model to tell the activity to launch another activity
-        // view model also provided the Bundle in the event that is needed for the Activity
         viewModel.launchMain.observe(this, {
             it.getIfNotHandled()?.run {
                 startActivity(Intent(applicationContext, MainActivity::class.java))

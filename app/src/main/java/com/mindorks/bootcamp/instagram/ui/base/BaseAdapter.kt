@@ -8,9 +8,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.mindorks.bootcamp.instagram.data.model.Post
 import com.mindorks.bootcamp.instagram.utils.log.Logger
 
-abstract class BaseAdapter<T : Any, VH : BaseItemViewHolder<T, out BaseItemViewModel<T>>>(
-    parentLifecycle: Lifecycle,
-    private val dataList: ArrayList<T>
+abstract class BaseAdapter<T : Any, VH : BaseItemViewHolder< T, out BaseItemViewModel<T>>>(
+        parentLifecycle: Lifecycle,
+        private val dataList: ArrayList<T>
 ) : RecyclerView.Adapter<VH>() {
 
     private var recyclerView: RecyclerView? = null
@@ -24,10 +24,10 @@ abstract class BaseAdapter<T : Any, VH : BaseItemViewHolder<T, out BaseItemViewM
                     for (i in 0 until childCount) {
                         getChildAt(i)?.let {
                             (getChildViewHolder(it) as BaseItemViewHolder<*, *>)
-                                .run {
-                                    onDestroy()
-                                    viewModel.onManualCleared()
-                                }
+                                    .run {
+                                        onDestroy()
+                                        viewModel.onManualCleared()
+                                    }
                         }
                     }
                 }
@@ -51,10 +51,10 @@ abstract class BaseAdapter<T : Any, VH : BaseItemViewHolder<T, out BaseItemViewM
                 recyclerView?.run {
                     if (layoutManager is LinearLayoutManager) {
                         val first =
-                            (layoutManager as LinearLayoutManager).findFirstVisibleItemPosition()
+                                (layoutManager as LinearLayoutManager).findFirstVisibleItemPosition()
                         val last =
-                            (layoutManager as LinearLayoutManager).findLastVisibleItemPosition()
-                        if (first in 0..last)
+                                (layoutManager as LinearLayoutManager).findLastVisibleItemPosition()
+                        if (first in 0..last) //first to last
                             for (i in first..last) {
                                 findViewHolderForAdapterPosition(i)?.let {
                                     (it as BaseItemViewHolder<*, *>).onStart()

@@ -73,10 +73,12 @@ class HomeFragment : BaseFragment<HomeViewModel>() {
             viewModel.onDeletePost(it)
         })
 
+        
         mainSharedViewModel.newPost.observe(this, Observer {
 
             viewModel.onNewPost(it)
         })
+
 
         viewModel.newPostAdded.observe(this, Observer {
             Logger.d(TAG, "refreshLikePosts")
