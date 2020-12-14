@@ -19,6 +19,7 @@ import io.reactivex.disposables.CompositeDisposable
 import java.io.File
 import javax.inject.Singleton
 
+/*every component needs a scope*/
 
 @Singleton
 @Component(modules = [ApplicationModule::class])

@@ -8,6 +8,8 @@ import com.mindorks.bootcamp.instagram.ui.profile.ProfileFragment
 import com.mindorks.bootcamp.instagram.ui.postdetail.PostDetailFragment
 import dagger.Component
 
+/*every component needs a scope*/
+
 @FragmentScope
 @Component(
     dependencies = [ApplicationComponent::class],

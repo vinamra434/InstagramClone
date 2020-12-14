@@ -31,24 +31,23 @@
             app:layout_constraintTop_toBottomOf="@+id/tvTitle" />
 
         <TextView
-            android:id="@+id/fromCamera"
+            android:id="@+id/tv_from_camera"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:drawableStart="@drawable/ic_camera"
             android:gravity="start"
             android:padding="16dp"
             android:text="@string/take_photo"
             android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/line" />
+            app:layout_constraintTop_toBottomOf="@+id/line"
+            app:drawableStartCompat="@drawable/ic_camera" />
 
 
         <TextView
-            android:id="@+id/fromGallery"
+            android:id="@+id/tv_from_gallery"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:drawableStart="@drawable/ic_insert_photo"
             android:gravity="start"
             android:padding="16dp"
             android:text="@string/Gallery"
@@ -56,7 +55,8 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/fromCamera" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_from_camera"
+            app:drawableStartCompat="@drawable/ic_insert_photo" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </RelativeLayout>

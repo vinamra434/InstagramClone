@@ -7,7 +7,8 @@ import javax.inject.Singleton
 import kotlin.reflect.KClass
 
 /**
- * When ViewModel require parameters in the constructor then ViewModelProviders.of(activity).get(ViewModel.class) do not work
+ * When ViewModel require parameters in the constructor then
+ * ViewModelProviders.of(activity).get(ViewModel.class) do not work
  * In this case we need to provide our own ViewModelProvider's Factory.
  * create method is called by Android Framework when it needs to create a ViewModel instance.
  * NOTE: When activity rotates then create method is not called but earlier instance of ViewModel is returned.

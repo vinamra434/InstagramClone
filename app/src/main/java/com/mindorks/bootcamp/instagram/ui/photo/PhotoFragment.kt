@@ -6,12 +6,11 @@ import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.Observer
 import com.mindorks.bootcamp.instagram.R
+import com.mindorks.bootcamp.instagram.di.UploadImageDialog
 import com.mindorks.bootcamp.instagram.di.component.FragmentComponent
 import com.mindorks.bootcamp.instagram.ui.base.BaseFragment
-import com.mindorks.bootcamp.instagram.ui.home.HomeFragment
 import com.mindorks.bootcamp.instagram.ui.main.MainSharedViewModel
-import com.mindorks.bootcamp.instagram.utils.common.DialogSavingDetail
-import com.mindorks.bootcamp.instagram.utils.common.Event
+import com.mindorks.bootcamp.instagram.ui.progressdialog.ProgressDialogFragment
 import com.mindorks.bootcamp.instagram.utils.log.Logger
 import com.mindorks.paracamera.Camera
 import kotlinx.android.synthetic.main.fragment_photo.*
@@ -38,7 +37,8 @@ class PhotoFragment : BaseFragment<PhotoViewModel>() {
     lateinit var mainSharedViewModel: MainSharedViewModel
 
     @Inject
-    lateinit var uploadPhotoLoading: DialogSavingDetail
+    @UploadImageDialog
+    lateinit var uploadImageDialog: ProgressDialogFragment
 
     @Inject
     lateinit var camera: Camera
@@ -67,16 +67,19 @@ class PhotoFragment : BaseFragment<PhotoViewModel>() {
             }
         })
 
-
     }
 
     private fun hideImageUploadDialog() {
-        uploadPhotoLoading.dismiss()
+        Logger.d(TAG, "hideImageUploadDialog")
+//        uploadPhotoLoading.dismiss()
+        uploadImageDialog.dismiss()
     }
 
     private fun showImageUploadLoader() {
-        val transaction = childFragmentManager.beginTransaction()
-        uploadPhotoLoading.show(transaction, DialogSavingDetail.TAG)
+        Logger.d(TAG, "showImageUploadLoader")
+        /*val transaction = childFragmentManager.beginTransaction()
+        uploadPhotoLoading.show(transaction, DialogSavingDetail.TAG)*/
+        uploadImageDialog.show(childFragmentManager, ProgressDialogFragment.TAG)
     }
 
     override fun setupView(view: View) {

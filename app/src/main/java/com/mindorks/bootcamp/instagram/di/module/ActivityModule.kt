@@ -1,23 +1,25 @@
 package com.mindorks.bootcamp.instagram.di.module
 
-
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mindorks.bootcamp.instagram.R
 import com.mindorks.bootcamp.instagram.data.repository.PhotoRepository
 import com.mindorks.bootcamp.instagram.data.repository.UserRepository
-import com.mindorks.bootcamp.instagram.di.ImageDialog
-import com.mindorks.bootcamp.instagram.di.ProfileDialog
-import com.mindorks.bootcamp.instagram.di.TempDirectory
+import com.mindorks.bootcamp.instagram.di.*
 import com.mindorks.bootcamp.instagram.ui.base.BaseActivity
+import com.mindorks.bootcamp.instagram.ui.discardchanges.DiscardChangeDialogFragment
+import com.mindorks.bootcamp.instagram.ui.discardchanges.DiscardChangeViewModel
 import com.mindorks.bootcamp.instagram.ui.editprofile.EditProfileViewModel
+import com.mindorks.bootcamp.instagram.ui.imageselection.ImageSelectionDialogFragment
+import com.mindorks.bootcamp.instagram.ui.imageselection.ImageSelectionViewModel
 import com.mindorks.bootcamp.instagram.ui.login.LoginViewModel
 import com.mindorks.bootcamp.instagram.ui.main.MainSharedViewModel
 import com.mindorks.bootcamp.instagram.ui.main.MainViewModel
+import com.mindorks.bootcamp.instagram.ui.progressdialog.ProgressDialogFragment
 import com.mindorks.bootcamp.instagram.ui.signup.SignUpViewModel
 import com.mindorks.bootcamp.instagram.ui.splash.SplashViewModel
 import com.mindorks.bootcamp.instagram.utils.ViewModelProviderFactory
-import com.mindorks.bootcamp.instagram.utils.common.DialogSavingDetail
 import com.mindorks.bootcamp.instagram.utils.network.NetworkHelper
 import com.mindorks.bootcamp.instagram.utils.rx.SchedulerProvider
 import com.mindorks.paracamera.Camera
@@ -26,11 +28,6 @@ import dagger.Provides
 import io.reactivex.disposables.CompositeDisposable
 import java.io.File
 
-/**
- * Kotlin Generics Reference: https://kotlinlang.org/docs/reference/generics.html
- * Basically it means that we can pass any class that extends BaseActivity which take
- * BaseViewModel subclass as parameter
- */
 @Module
 class ActivityModule(private val activity: BaseActivity<*>) {
 
@@ -123,14 +120,47 @@ class ActivityModule(private val activity: BaseActivity<*>) {
         .build(activity)
 
     @Provides
-    @ImageDialog
-    fun provideImageUpdatingDialog() =
-        DialogSavingDetail.newInstance(activity.getString(R.string.upload_image_message))
+    @SavingProfileDialog
+    fun provideSavingProfileDialog(): ProgressDialogFragment =
+        ProgressDialogFragment.newInstance(R.string.saving_profile_message)
 
     @Provides
-    @ProfileDialog
-    fun provideProfileUpdatingDialog() =
-        DialogSavingDetail.newInstance(activity.getString(R.string.saving_profile_message))
+    @UploadImageDialog
+    fun provideUploadImageProgressDialog(): ProgressDialogFragment =
+        ProgressDialogFragment.newInstance(R.string.upload_image_message)
 
+    @Provides
+    @ImageSelectionDialog
+    fun provideImageSelectionProgressDialog(): ProgressDialogFragment =
+        ProgressDialogFragment.newInstance(R.string.upload_image_message)
 
+    @Provides
+    fun provideDiscardChangeDialog(): DiscardChangeDialogFragment =
+        DiscardChangeDialogFragment.newInstance()
+
+    @Provides
+    fun provideImageSelectionDialog(): ImageSelectionDialogFragment =
+        ImageSelectionDialogFragment.newInstance()
+
+    @Provides
+    fun provideDiscardChangeViewModel(
+        schedulerProvider: SchedulerProvider,
+        compositeDisposable: CompositeDisposable,
+        networkHelper: NetworkHelper,
+    ): DiscardChangeViewModel = ViewModelProvider(activity, ViewModelProviderFactory(
+        DiscardChangeViewModel::class
+    ) {
+        DiscardChangeViewModel(schedulerProvider, compositeDisposable, networkHelper)
+    }).get(DiscardChangeViewModel::class.java)
+
+    @Provides
+    fun provideImageSelectionViewModel(
+        schedulerProvider: SchedulerProvider,
+        compositeDisposable: CompositeDisposable,
+        networkHelper: NetworkHelper,
+    ): ImageSelectionViewModel = ViewModelProvider(activity, ViewModelProviderFactory(
+        ImageSelectionViewModel::class
+    ) {
+        ImageSelectionViewModel(schedulerProvider, compositeDisposable, networkHelper)
+    }).get(ImageSelectionViewModel::class.java)
 }

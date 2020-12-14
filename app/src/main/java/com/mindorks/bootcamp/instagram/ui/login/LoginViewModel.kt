@@ -31,6 +31,7 @@ class LoginViewModel(
 
     val launchSignUp: MutableLiveData<Event<Map<String, String>>> = MutableLiveData()
 
+    /*whenever new data i savailable in validationlist Transformation operation is applied here*/
     private fun filterValidation(field: Validation.Field) =
         Transformations.map(validationsList) {
             it.find { validation -> validation.field == field }
@@ -40,7 +41,9 @@ class LoginViewModel(
 
     override fun onCreate() {}
 
-    fun onEmailChange(email: String) = emailField.postValue(email)
+    fun onEmailChange(email: String) {
+        emailField.postValue(email)
+    }
 
     fun onPasswordChange(email: String) = passwordField.postValue(email)
 

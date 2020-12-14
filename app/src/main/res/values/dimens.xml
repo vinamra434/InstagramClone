@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="loader_message">18sp</dimen>
-    <dimen name="loader_container_padding">25dp</dimen>
+
 </resources>

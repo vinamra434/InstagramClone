@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.View
 import androidx.lifecycle.Observer
 import com.mindorks.bootcamp.instagram.R
@@ -14,6 +15,7 @@ import com.mindorks.bootcamp.instagram.ui.signup.SignUpActivity
 import com.mindorks.bootcamp.instagram.utils.common.Event
 import com.mindorks.bootcamp.instagram.utils.common.Status
 import kotlinx.android.synthetic.main.activity_login.*
+import java.util.logging.Logger
 
 class LoginActivity : BaseActivity<LoginViewModel>() {
 
@@ -67,7 +69,9 @@ class LoginActivity : BaseActivity<LoginViewModel>() {
         })
 
         viewModel.emailField.observe(this, Observer {
-            if (et_email.text.toString() != it) et_email.setText(it)
+            if (et_email.text.toString() != it) {
+                et_email.setText(it)
+            }
         })
 
         viewModel.emailValidation.observe(this, Observer {

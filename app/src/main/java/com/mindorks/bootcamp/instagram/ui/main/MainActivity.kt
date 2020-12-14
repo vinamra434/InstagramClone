@@ -2,14 +2,13 @@ package com.mindorks.bootcamp.instagram.ui.main
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import com.mindorks.bootcamp.instagram.R
 import com.mindorks.bootcamp.instagram.di.component.ActivityComponent
 import com.mindorks.bootcamp.instagram.ui.base.BaseActivity
 import com.mindorks.bootcamp.instagram.ui.home.HomeFragment
 import com.mindorks.bootcamp.instagram.ui.photo.PhotoFragment
-import com.mindorks.bootcamp.instagram.ui.profile.ProfileFragment
 import com.mindorks.bootcamp.instagram.ui.postdetail.PostDetailFragment
+import com.mindorks.bootcamp.instagram.ui.profile.ProfileFragment
 import com.mindorks.bootcamp.instagram.utils.log.Logger
 import kotlinx.android.synthetic.main.activity_main.*
 import javax.inject.Inject
@@ -80,19 +79,19 @@ class MainActivity : BaseActivity<MainViewModel>() {
         super.setupObservers()
         Logger.d(TAG, "setupObservers")
 
-        viewModel.homeNavigation.observe(this, Observer {
+        viewModel.homeNavigation.observe(this, {
             it.getIfNotHandled()?.run { showHome() }
         })
 
-        viewModel.profileNavigation.observe(this, Observer {
+        viewModel.profileNavigation.observe(this, {
             it.getIfNotHandled()?.run { showProfile() }
         })
 
-        viewModel.photoNavigation.observe(this, Observer {
+        viewModel.photoNavigation.observe(this, {
             it.getIfNotHandled()?.run { showAddPhoto() }
         })
 
-        mainSharedViewModel.homeRedirection.observe(this, Observer {
+        mainSharedViewModel.homeRedirection.observe(this, {
             it.getIfNotHandled()?.run { bottomNavigation.selectedItemId = R.id.itemHome }
         })
 
@@ -188,41 +187,9 @@ class MainActivity : BaseActivity<MainViewModel>() {
 
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        Logger.d(TAG, "onCreate")
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        Logger.d(TAG, "onDestroy")
-    }
-
-    override fun onStart() {
-        super.onStart()
-        Logger.d(TAG, "onStart")
-    }
-
-    override fun onResume() {
-        super.onResume()
-        Logger.d(TAG, "onResume")
-    }
-
-    override fun onPause() {
-        super.onPause()
-        Logger.d(TAG, "onPause")
-    }
-
-    override fun onStop() {
-        super.onStop()
-        Logger.d(TAG, "onStop")
-    }
-
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         Logger.d(TAG, "onSaveInstanceState")
         outState.putString(ACTIVE_FRAGMENT, activeFragment?.tag)
     }
-
-
 }

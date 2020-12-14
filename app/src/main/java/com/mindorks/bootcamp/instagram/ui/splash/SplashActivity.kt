@@ -11,6 +11,7 @@ import com.mindorks.bootcamp.instagram.ui.login.LoginActivity
 import com.mindorks.bootcamp.instagram.ui.main.MainActivity
 import com.mindorks.bootcamp.instagram.utils.common.Event
 import com.mindorks.bootcamp.instagram.utils.log.Logger
+import javax.inject.Inject
 
 class SplashActivity : BaseActivity<SplashViewModel>() {
 
@@ -49,15 +50,5 @@ class SplashActivity : BaseActivity<SplashViewModel>() {
             }
         })
 
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        Logger.d(TAG, "onCreate")
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        Logger.d(TAG, "onDestroy")
     }
 }

@@ -8,16 +8,20 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.mindorks.bootcamp.instagram.R
-import com.mindorks.bootcamp.instagram.di.ImageDialog
-import com.mindorks.bootcamp.instagram.di.ProfileDialog
+import com.mindorks.bootcamp.instagram.di.SavingProfileDialog
+import com.mindorks.bootcamp.instagram.di.UploadImageDialog
 import com.mindorks.bootcamp.instagram.di.component.ActivityComponent
 import com.mindorks.bootcamp.instagram.ui.base.BaseActivity
-import com.mindorks.bootcamp.instagram.utils.common.*
+import com.mindorks.bootcamp.instagram.ui.discardchanges.DiscardChangeDialogFragment
+import com.mindorks.bootcamp.instagram.ui.discardchanges.DiscardChangeViewModel
+import com.mindorks.bootcamp.instagram.ui.imageselection.ImageSelectionDialogFragment
+import com.mindorks.bootcamp.instagram.ui.imageselection.ImageSelectionViewModel
+import com.mindorks.bootcamp.instagram.ui.progressdialog.ProgressDialogFragment
+import com.mindorks.bootcamp.instagram.utils.common.GlideHelper
+import com.mindorks.bootcamp.instagram.utils.common.Status
 import com.mindorks.bootcamp.instagram.utils.log.Logger
 import com.mindorks.paracamera.Camera
 import kotlinx.android.synthetic.main.activity_edit_profile.*
@@ -26,8 +30,7 @@ import kotlinx.android.synthetic.main.item_view_post.view.*
 import java.io.FileNotFoundException
 import javax.inject.Inject
 
-class EditProfileActivity : BaseActivity<EditProfileViewModel>(),
-    DialogListener, DialogDiscardChanges.DialogListener {
+class EditProfileActivity : BaseActivity<EditProfileViewModel>() {
 
     companion object {
         const val TAG = "EditProfileActivity"
@@ -41,21 +44,33 @@ class EditProfileActivity : BaseActivity<EditProfileViewModel>(),
     lateinit var editProfileBroadcast: EditProfileBroadcast
 
     @Inject
-    @ImageDialog
-    lateinit var imageUpdateDialog: DialogSavingDetail
+    @SavingProfileDialog
+    lateinit var savingProfileDialog: ProgressDialogFragment
 
     @Inject
-    @ProfileDialog
-    lateinit var profileUpdateDialog: DialogSavingDetail
+    @UploadImageDialog
+    lateinit var uploadImageDialog: ProgressDialogFragment
+
+    @Inject
+    lateinit var discardChangeDialogFragment: DiscardChangeDialogFragment
+
+    @Inject
+    lateinit var discardChangeViewModel: DiscardChangeViewModel
+
+    @Inject
+    lateinit var imageSelectionDialogFragment: ImageSelectionDialogFragment
+
+    @Inject
+    lateinit var imageSelectionViewModel: ImageSelectionViewModel
 
     override fun provideLayoutId() = R.layout.activity_edit_profile
 
-    override fun injectDependencies(activityComponent: ActivityComponent) =
+    override fun injectDependencies(activityComponent: ActivityComponent) {
         activityComponent.inject(this)
+    }
 
     override fun setupView(savedInstanceState: Bundle?) {
-        //set photo, name and tagline and email of user and set click on done (right) icon
-
+        //set photo, name and tag line and email of user and set click on done (right) icon
         showToolBar(View.VISIBLE)
         setToolbarTitle(R.string.edit_profile)
         setToolbarStart(R.drawable.ic_cancel)
@@ -89,26 +104,26 @@ class EditProfileActivity : BaseActivity<EditProfileViewModel>(),
     override fun setupObservers() {
         super.setupObservers()
 
-        viewModel.nameFieldValidation.observe(this, Observer {
+        viewModel.nameFieldValidation.observe(this, {
             when (it.status) {
                 Status.ERROR -> etName.error = it.data?.run { getString(this) }
                 else -> etName.error = null
             }
         })
 
-        viewModel.nameField.observe(this, Observer {
+        viewModel.nameField.observe(this, {
             if (etName.text.toString() != it) etName.setText(it)
         })
 
-        viewModel.bioField.observe(this, Observer {
+        viewModel.bioField.observe(this, {
             if (etBio.text.toString() != it) etBio.setText(it)
         })
 
-        viewModel.email.observe(this, Observer {
+        viewModel.email.observe(this, {
             if (tvEmail.text.toString() != it) tvEmail.text = it
         })
 
-        viewModel.profileUrl.observe(this, Observer {
+        viewModel.profileUrl.observe(this, {
             it?.run {
 
                 val glideRequest = Glide
@@ -130,25 +145,25 @@ class EditProfileActivity : BaseActivity<EditProfileViewModel>(),
             }
         })
 
-        viewModel.imageUpdateLoading.observe(this, Observer {
+        viewModel.imageUpdateLoading.observe(this, {
             if (it) showImageUpdateDialog() else hideImageUpdateDialog()
         })
 
-        viewModel.profileUpdateLoading.observe(this, Observer {
+        viewModel.profileUpdateLoading.observe(this, {
             if (it) showProfileUpdateDialog() else hideProfileUpdateDialog()
         })
 
-        viewModel.loading.observe(this, Observer {
+        viewModel.loading.observe(this, {
             pb_loading.visibility = if (it) View.VISIBLE else View.GONE
         })
 
-        viewModel.openImageSelectionDialog.observe(this, Observer {
+        viewModel.openImageSelectionDialog.observe(this, {
             it.getIfNotHandled()?.run {
                 showImageSelectionDialog()
             }
         })
 
-        viewModel.showDiscardDialog.observe(this, Observer {
+        viewModel.showDiscardDialog.observe(this, {
             it.getIfNotHandled()?.run {
                 if (this) {
                     showDiscardChangesDialog()
@@ -158,74 +173,14 @@ class EditProfileActivity : BaseActivity<EditProfileViewModel>(),
             }
         })
 
-        viewModel.updatedUser.observe(this, Observer {
+        viewModel.updatedUser.observe(this, {
             it.getIfNotHandled()?.run {
-                    editProfileBroadcast.userInfo.postValue(this)
+                editProfileBroadcast.userInfo.postValue(this)
             }
         })
 
-    }
-
-    private fun hideImageUpdateDialog() {
-        Handler().postDelayed({
-            imageUpdateDialog.dismiss()
-        },2000)
-    }
-
-    private fun hideProfileUpdateDialog() {
-        Handler().postDelayed({
-            profileUpdateDialog.dismiss()
-            finish()
-        },2000)
-    }
-
-    private fun showImageSelectionDialog() {
-
-        val ft = supportFragmentManager.beginTransaction()
-        val imageSelectionFragment = DialogImageSelection.newInstance()
-        imageSelectionFragment.show(ft, DialogImageSelection.TAG)
-    }
-
-    private fun showImageUpdateDialog() {
-
-        val ft = supportFragmentManager.beginTransaction()
-        imageUpdateDialog.show(ft, DialogSavingDetail.TAG)
-    }
-
-    private fun showProfileUpdateDialog() {
-
-        val ft = supportFragmentManager.beginTransaction()
-        profileUpdateDialog.show(ft, DialogSavingDetail.TAG)
-    }
-
-    private fun showDiscardChangesDialog() {
-
-        val ft = supportFragmentManager.beginTransaction()
-        val fragment: Fragment? =
-            supportFragmentManager.findFragmentByTag(DialogDiscardChanges.TAG) as DialogDiscardChanges?
-
-        if (fragment != null) {
-            ft.remove(fragment)
-        }
-        ft.addToBackStack(null)
-
-        val discardImageDialog = DialogDiscardChanges.newInstance()
-        discardImageDialog.show(ft, DialogDiscardChanges.TAG)
-
-    }
-
-    override fun onOptionSelected(option: DialogListener.Selection) {
-        when (option) {
-            DialogListener.Selection.CAMERA -> {
-                try {
-                    camera.takePicture()
-                } catch (e: Exception) {
-                    e.printStackTrace()
-                }
-
-            }
-
-            DialogListener.Selection.GALLERY -> {
+        imageSelectionViewModel.onGallerySelected.observe(this, {
+            it.getIfNotHandled()?.run {
                 Intent(Intent.ACTION_PICK)
                     .apply {
                         type = "image/*"
@@ -233,13 +188,57 @@ class EditProfileActivity : BaseActivity<EditProfileViewModel>(),
                         startActivityForResult(this, RESULT_GALLERY_IMG)
                     }
             }
-        }
+        })
+
+        imageSelectionViewModel.onCameraSelected.observe(this, {
+            it.getIfNotHandled()?.run {
+                try {
+                    camera.takePicture()
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                }
+            }
+        })
+
+        discardChangeViewModel.yesSelected.observe(this, {
+            finish()
+        })
     }
 
-    override fun onOptionSelected(option: DialogDiscardChanges.Choice) {
-        if (option == DialogDiscardChanges.Choice.YES) {
+    private fun hideImageUpdateDialog() {
+        Logger.d(TAG, "hideImageUpdateDialog")
+        Handler().postDelayed({
+            savingProfileDialog.dismiss()
+        }, 2000)
+
+    }
+
+    private fun hideProfileUpdateDialog() {
+        Logger.d(TAG, "hideProfileUpdateDialog")
+        Handler().postDelayed({
+            uploadImageDialog.dismiss()
             finish()
-        }
+        }, 2000)
+    }
+
+    private fun showImageSelectionDialog() {
+        Logger.d(TAG, "showImageSelectionDialog")
+        imageSelectionDialogFragment.show(supportFragmentManager, ImageSelectionDialogFragment.TAG)
+    }
+
+    private fun showImageUpdateDialog() {
+        Logger.d(TAG, "showImageUpdateDialog")
+        savingProfileDialog.show(supportFragmentManager, ProgressDialogFragment.TAG)
+    }
+
+    private fun showProfileUpdateDialog() {
+        Logger.d(TAG, "showProfileUpdateDialog")
+        uploadImageDialog.show(supportFragmentManager, ProgressDialogFragment.TAG)
+    }
+
+    private fun showDiscardChangesDialog() {
+        Logger.d(TAG, "showDiscardChangesDialog")
+        discardChangeDialogFragment.show(supportFragmentManager, DiscardChangeDialogFragment.TAG)
     }
 
     override fun onActivityResult(reqCode: Int, resultCode: Int, intent: Intent?) {
@@ -263,14 +262,5 @@ class EditProfileActivity : BaseActivity<EditProfileViewModel>(),
                 }
             }
         }
-    }
-
-    override fun onBackPressed() {
-        viewModel.onCancel()
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        Logger.d("EditProfileActivity", "onDestroy")
     }
 }

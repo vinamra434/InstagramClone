@@ -6,6 +6,8 @@ import com.mindorks.bootcamp.instagram.ui.home.posts.PostItemViewHolder
 import com.mindorks.bootcamp.instagram.ui.profile.myposts.MyPostItemViewHolder
 import dagger.Component
 
+/*every component needs a scope*/
+
 @ViewModelScope
 @Component(
     dependencies = [ApplicationComponent::class],
@@ -14,5 +16,6 @@ import dagger.Component
 interface ViewHolderComponent {
 
     fun inject(viewHolder: PostItemViewHolder)
+
     fun inject(viewHolder: MyPostItemViewHolder)
 }

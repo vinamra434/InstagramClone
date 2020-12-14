@@ -18,10 +18,6 @@ import kotlinx.android.synthetic.main.activity_base.*
 import kotlinx.android.synthetic.main.custom_toolbar.*
 import javax.inject.Inject
 
-/**
- * Reference for generics: https://kotlinlang.org/docs/reference/generics.html
- * Basically BaseActivity will take any class that extends BaseViewModel
- */
 abstract class BaseActivity<VM : BaseViewModel> : AppCompatActivity() {
 
     @Inject

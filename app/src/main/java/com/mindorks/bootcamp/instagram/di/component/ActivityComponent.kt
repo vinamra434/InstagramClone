@@ -9,7 +9,7 @@ import com.mindorks.bootcamp.instagram.ui.signup.SignUpActivity
 import com.mindorks.bootcamp.instagram.ui.splash.SplashActivity
 import dagger.Component
 
-
+/*every component needs a scope*/
 /*intermediate between activity/fragment view-model and its corresponding module*/
 @ActivityScope
 @Component(
@@ -27,4 +27,5 @@ interface ActivityComponent {
     fun inject(activity: MainActivity)
 
     fun inject(activity: EditProfileActivity)
+
 }

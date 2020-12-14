@@ -18,8 +18,12 @@ annotation class TempDirectory
 
 @Qualifier
 @Retention(AnnotationRetention.SOURCE)
-annotation class ImageDialog
+annotation class SavingProfileDialog
 
 @Qualifier
 @Retention(AnnotationRetention.SOURCE)
-annotation class ProfileDialog
+annotation class UploadImageDialog
+
+@Qualifier
+@Retention(AnnotationRetention.SOURCE)
+annotation class ImageSelectionDialog

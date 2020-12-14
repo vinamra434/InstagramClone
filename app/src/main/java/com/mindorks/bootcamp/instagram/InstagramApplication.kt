@@ -5,6 +5,7 @@ import com.mindorks.bootcamp.instagram.di.component.ApplicationComponent
 import com.mindorks.bootcamp.instagram.di.component.DaggerApplicationComponent
 import com.mindorks.bootcamp.instagram.di.module.ApplicationModule
 
+/*here we keep application wide singletons*/
 class InstagramApplication : Application() {
 
     lateinit var applicationComponent: ApplicationComponent
