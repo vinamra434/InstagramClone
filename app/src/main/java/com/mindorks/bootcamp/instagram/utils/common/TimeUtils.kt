@@ -15,20 +15,28 @@ object TimeUtils {
         if (time > now || time <= 0) return ""
 
         val diff = now - time
-        return if (diff < MINUTE_MILLIS) {
-            "just now"
-        } else if (diff < 2 * MINUTE_MILLIS) {
-            "a minute ago"
-        } else if (diff < 50 * MINUTE_MILLIS) {
-            "${diff / MINUTE_MILLIS} minutes ago"
-        } else if (diff < 90 * MINUTE_MILLIS) {
-            "an hour ago"
-        } else if (diff < 24 * HOUR_MILLIS) {
-            "${diff / HOUR_MILLIS} hours ago"
-        } else if (diff < 48 * HOUR_MILLIS) {
-            "yesterday"
-        } else {
-            "${diff / DAY_MILLIS} days ago"
+        return when {
+            diff < MINUTE_MILLIS -> {
+                "just now"
+            }
+            diff < 2 * MINUTE_MILLIS -> {
+                "a minute ago"
+            }
+            diff < 50 * MINUTE_MILLIS -> {
+                "${diff / MINUTE_MILLIS} minutes ago"
+            }
+            diff < 90 * MINUTE_MILLIS -> {
+                "an hour ago"
+            }
+            diff < 24 * HOUR_MILLIS -> {
+                "${diff / HOUR_MILLIS} hours ago"
+            }
+            diff < 48 * HOUR_MILLIS -> {
+                "yesterday"
+            }
+            else -> {
+                "${diff / DAY_MILLIS} days ago"
+            }
         }
     }
 }

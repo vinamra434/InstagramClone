@@ -86,4 +86,5 @@
             tools:text="4 Hrs ago" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 </com.google.android.material.card.MaterialCardView>

@@ -16,10 +16,6 @@ import com.mindorks.bootcamp.instagram.utils.display.Toaster
 import com.mindorks.bootcamp.instagram.utils.log.Logger
 import javax.inject.Inject
 
-/**
- * Reference for generics: https://kotlinlang.org/docs/reference/generics.html
- * Basically BaseFragment will take any class that extends BaseViewModel
- */
 abstract class BaseFragment<VM : BaseViewModel> : Fragment() {
 
     @Inject

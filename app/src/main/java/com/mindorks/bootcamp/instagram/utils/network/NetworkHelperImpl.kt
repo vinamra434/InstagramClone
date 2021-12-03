@@ -3,7 +3,6 @@ package com.mindorks.bootcamp.instagram.utils.network
 import android.content.Context
 import android.net.ConnectivityManager
 import com.google.gson.GsonBuilder
-import com.google.gson.JsonSyntaxException
 import com.jakewharton.retrofit2.adapter.rxjava2.HttpException
 import com.mindorks.bootcamp.instagram.utils.log.Logger
 import java.io.IOException
@@ -39,6 +38,7 @@ class NetworkHelperImpl constructor(private val context: Context) : NetworkHelpe
                     throwable.response().errorBody()?.string(),
                     NetworkError::class.java
                 )
+
             return NetworkError(throwable.code(), error.statusCode, error.message)
         /*} catch (e: IOException) {
             Logger.e(TAG, e.toString())

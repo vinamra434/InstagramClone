@@ -17,7 +17,6 @@ import com.mindorks.bootcamp.instagram.utils.network.NetworkHelper
 import com.mindorks.bootcamp.instagram.utils.rx.SchedulerProvider
 import io.reactivex.disposables.CompositeDisposable
 
-
 class ProfileViewModel(
     schedulerProvider: SchedulerProvider,
     compositeDisposable: CompositeDisposable,
@@ -48,7 +47,6 @@ class ProfileViewModel(
     val userName: LiveData<String> = Transformations.map(userInfo) {
         it.name
     }
-
     val launchEditProfile: MutableLiveData<Event<Map<String, String>>> = MutableLiveData()
 
     val logout: MutableLiveData<Event<Map<String, String>>> = MutableLiveData()

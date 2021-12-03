@@ -235,35 +235,4 @@ class ProfileFragment : BaseFragment<ProfileViewModel>(), ClickListener {
     override fun onClick(adapterPosition: Int) {
         viewModel.onPostImageClicked(adapterPosition)
     }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        Logger.d(TAG, "onDestroy")
-    }
-
-    override fun onStart() {
-        super.onStart()
-        Logger.d(TAG, "onStart")
-    }
-
-    override fun onStop() {
-        super.onStop()
-        Logger.d(TAG, "onStop")
-    }
-
-    override fun onResume() {
-        super.onResume()
-        Logger.d(TAG, "onResume")
-    }
-
-    override fun onPause() {
-        super.onPause()
-        Logger.d(TAG, "onPause")
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        Logger.d(TAG, "onCreate")
-    }
-
 }

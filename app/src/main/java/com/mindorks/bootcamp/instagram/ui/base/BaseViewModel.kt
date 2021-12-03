@@ -3,12 +3,13 @@ package com.mindorks.bootcamp.instagram.ui.base
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.mindorks.bootcamp.instagram.R
+import com.mindorks.bootcamp.instagram.data.repository.UserRepository
 import com.mindorks.bootcamp.instagram.utils.common.Resource
 import com.mindorks.bootcamp.instagram.utils.network.NetworkHelper
 import com.mindorks.bootcamp.instagram.utils.rx.SchedulerProvider
 import io.reactivex.disposables.CompositeDisposable
+import javax.inject.Inject
 import javax.net.ssl.HttpsURLConnection
-
 
 abstract class BaseViewModel(
     protected val schedulerProvider: SchedulerProvider,
@@ -32,8 +33,6 @@ abstract class BaseViewModel(
             false
         }
 
-    protected fun checkInternetConnection(): Boolean = networkHelper.isNetworkConnected()
-
     protected fun handleNetworkError(err: Throwable?) =
         err?.let {
             networkHelper.castToNetworkError(it).run {
@@ -54,6 +53,7 @@ abstract class BaseViewModel(
         }
 
     protected open fun forcedLogoutUser() {
+
     }
 
     abstract fun onCreate()

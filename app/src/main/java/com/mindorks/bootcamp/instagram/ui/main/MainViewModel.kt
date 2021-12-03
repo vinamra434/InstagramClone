@@ -37,10 +37,5 @@ class MainViewModel(
         photoNavigation.postValue(Event(true))
     }
 
-    override fun onCleared() {
-        super.onCleared()
-        Logger.d("MainViewModel", "onCleared")
-    }
-
 
 }

@@ -37,7 +37,8 @@
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="@+id/guidelineEnd"
         app:layout_constraintStart_toStartOf="@+id/guidelineStart"
-        app:layout_constraintTop_toBottomOf="@+id/viewShadow">
+        app:layout_constraintTop_toBottomOf="@+id/viewShadow"
+        tools:ignore="UseCompoundDrawables">
 
         <ImageView
             android:id="@+id/ivEditProfile"
@@ -89,7 +90,8 @@
         app:layout_constraintEnd_toEndOf="@+id/guidelineEnd"
         app:layout_constraintHorizontal_bias="0"
         app:layout_constraintStart_toStartOf="@+id/guidelineStart"
-        app:layout_constraintTop_toBottomOf="@+id/lblName" />
+        app:layout_constraintTop_toBottomOf="@+id/lblName"
+        android:inputType="text" />
 
     <TextView
         android:id="@+id/lblBio"
@@ -112,6 +114,7 @@
         android:background="@drawable/edittext_bottom_border"
         android:hint="@string/bio"
         android:textSize="22sp"
+        android:inputType="text"
         app:layout_constraintEnd_toEndOf="@+id/guidelineEnd"
         app:layout_constraintHorizontal_bias="0"
         app:layout_constraintStart_toStartOf="@+id/guidelineStart"

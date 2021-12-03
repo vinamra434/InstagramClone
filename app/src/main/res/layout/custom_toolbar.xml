@@ -25,7 +25,8 @@
         android:layout_marginStart="24dp"
         android:layout_toEndOf="@id/tb_start_image"
         android:textSize="20sp"
-        tools:text="Screen Title" />
+        tools:text="Screen Title"
+        tools:ignore="RelativeOverlap" />
 
     <ImageButton
         android:id="@+id/tb_end_image"

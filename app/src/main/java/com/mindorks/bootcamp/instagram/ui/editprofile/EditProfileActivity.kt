@@ -30,9 +30,7 @@ import kotlinx.android.synthetic.main.item_view_post.view.*
 import java.io.FileNotFoundException
 import javax.inject.Inject
 
-class EditProfileActivity : BaseActivity<EditProfileViewModel>() {
-
-    companion object {
+class EditProfileActivity : BaseActivity<EditProfileViewModel>() {  companion object {
         const val TAG = "EditProfileActivity"
         const val RESULT_GALLERY_IMG = 1001
     }

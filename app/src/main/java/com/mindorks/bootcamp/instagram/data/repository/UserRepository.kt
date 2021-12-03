@@ -1,6 +1,5 @@
 package com.mindorks.bootcamp.instagram.data.repository
 
-import com.mindorks.bootcamp.instagram.data.local.db.DatabaseService
 import com.mindorks.bootcamp.instagram.data.local.prefs.UserPreferences
 import com.mindorks.bootcamp.instagram.data.model.MyPost
 import com.mindorks.bootcamp.instagram.data.model.Post
@@ -19,7 +18,6 @@ class UserRepository @Inject constructor(
     private val networkService: NetworkService,
     private val userPreferences: UserPreferences
 ) {
-
     fun saveCurrentUser(user: User) {
         userPreferences.setUserId(user.id)
         userPreferences.setUserName(user.name)

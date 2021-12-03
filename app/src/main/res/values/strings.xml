@@ -23,6 +23,7 @@
     <string name="menu_home">Home</string>
     <string name="menu_add_photos">Add Photos</string>
     <string name="menu_profile">Profile</string>
+    <string name="menu_settings">Settings</string>
 
     <!--posts-->
     <string name="post_like_label">%1d Likes</string>
@@ -56,4 +57,9 @@
     <string name="post">Post</string>
     <string name="upload_image_message">Uploading Image Please Wait..</string>
     <string name="saving_profile_message">Saving Profile Please Wait..</string>
+
+    <!--settings-->
+    <string name="lbl_settings">Settings</string>
+    <string name="lbl_theme">Theme</string>
+
 </resources>

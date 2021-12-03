@@ -19,13 +19,13 @@ import kotlinx.android.synthetic.main.custom_toolbar.*
 import kotlinx.android.synthetic.main.fragment_post_detail.*
 import javax.inject.Inject
 
-private const val POST_ID = "param1"
-
 class PostDetailFragment : BaseFragment<PostDetailViewModel>() {
 
     companion object {
 
         const val TAG = "PostDetailFragment"
+
+        private const val POST_ID = "param1"
 
         fun newInstance(postId: String): PostDetailFragment =
             PostDetailFragment()
@@ -102,7 +102,7 @@ class PostDetailFragment : BaseFragment<PostDetailViewModel>() {
 
             lateinit var glideRequest: RequestBuilder<Drawable>
             if (it != null) {
-                glideRequest =  Glide
+                glideRequest = Glide
                     .with(ivProfile.context)
                     .load(GlideHelper.getProtectedUrl(it.url, it.headers))
                     .apply(RequestOptions.circleCropTransform())
@@ -118,7 +118,7 @@ class PostDetailFragment : BaseFragment<PostDetailViewModel>() {
                         .apply(RequestOptions.placeholderOf(R.drawable.ic_profile_unselected))
                 }
             } else {
-                glideRequest =  Glide
+                glideRequest = Glide
                     .with(ivProfile.context)
                     .load(R.drawable.ic_signup)
                     .apply(RequestOptions.circleCropTransform())

@@ -1,6 +1,5 @@
 package com.mindorks.bootcamp.instagram.ui.splash
 
-import android.os.Bundle
 import androidx.lifecycle.MutableLiveData
 import com.mindorks.bootcamp.instagram.data.repository.UserRepository
 import com.mindorks.bootcamp.instagram.ui.base.BaseViewModel
@@ -8,7 +7,6 @@ import com.mindorks.bootcamp.instagram.utils.common.Event
 import com.mindorks.bootcamp.instagram.utils.network.NetworkHelper
 import com.mindorks.bootcamp.instagram.utils.rx.SchedulerProvider
 import io.reactivex.disposables.CompositeDisposable
-
 
 class SplashViewModel(
     schedulerProvider: SchedulerProvider,

@@ -16,11 +16,10 @@ import kotlinx.android.synthetic.main.item_view_post.view.*
 class MyPostItemViewHolder(
     parent: ViewGroup,
     private val clickListener: ClickListener
-) :
-    BaseItemViewHolder<MyPost, MyPostItemViewModel>(
-        R.layout.item_view_my_post,
-        parent
-    ) {
+) : BaseItemViewHolder<MyPost, MyPostItemViewModel>(
+    R.layout.item_view_my_post,
+    parent
+) {
 
     override fun injectDependencies(viewHolderComponent: ViewHolderComponent) {
         viewHolderComponent.inject(this)

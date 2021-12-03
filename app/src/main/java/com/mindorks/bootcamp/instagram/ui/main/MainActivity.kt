@@ -38,15 +38,18 @@ class MainActivity : BaseActivity<MainViewModel>() {
 
             when (getString(ACTIVE_FRAGMENT)) {
                 HomeFragment.TAG -> {
-                    activeFragment = supportFragmentManager.findFragmentByTag(HomeFragment.TAG) as HomeFragment?
+                    activeFragment =
+                        supportFragmentManager.findFragmentByTag(HomeFragment.TAG) as HomeFragment?
                     viewModel.onHomeSelected()
                 }
                 ProfileFragment.TAG -> {
-                    activeFragment = supportFragmentManager.findFragmentByTag(ProfileFragment.TAG) as ProfileFragment?
+                    activeFragment =
+                        supportFragmentManager.findFragmentByTag(ProfileFragment.TAG) as ProfileFragment?
                     viewModel.onProfileSelected()
                 }
                 PhotoFragment.TAG -> {
-                    activeFragment = supportFragmentManager.findFragmentByTag(PhotoFragment.TAG) as PhotoFragment?
+                    activeFragment =
+                        supportFragmentManager.findFragmentByTag(PhotoFragment.TAG) as PhotoFragment?
                     viewModel.onPhotoSelected()
                 }
             }
@@ -127,7 +130,6 @@ class MainActivity : BaseActivity<MainViewModel>() {
 
     }
 
-
     private fun showProfile() {
         Logger.d(TAG, "showProfile")
 
@@ -189,7 +191,6 @@ class MainActivity : BaseActivity<MainViewModel>() {
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        Logger.d(TAG, "onSaveInstanceState")
         outState.putString(ACTIVE_FRAGMENT, activeFragment?.tag)
     }
 }
