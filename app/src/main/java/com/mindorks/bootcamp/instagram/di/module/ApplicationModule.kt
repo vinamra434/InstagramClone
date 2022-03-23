@@ -24,6 +24,8 @@ import dagger.Module
 import dagger.Provides
 import io.reactivex.disposables.CompositeDisposable
 import javax.inject.Singleton
+/*
+* parent module of app which provides dependencies throughtout the app*/
 
 @Module
 class ApplicationModule(private val application: InstagramApplication) {
@@ -65,7 +67,8 @@ class ApplicationModule(private val application: InstagramApplication) {
     @Provides
     @Singleton
     fun provideNetworkService(): NetworkService =
-        Networking.create(
+        Networking.
+        create(
             BuildConfig.API_KEY,
             BuildConfig.BASE_URL,
             application.cacheDir,
