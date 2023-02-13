@@ -1,23 +1,23 @@
 package com.mindorks.bootcamp.instagram.ui.photo
 
+//import com.mindorks.paracamera.Camera
 import android.app.Activity.RESULT_OK
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.Observer
 import com.mindorks.bootcamp.instagram.R
-import com.mindorks.bootcamp.instagram.di.UploadImageDialog
-import com.mindorks.bootcamp.instagram.di.component.FragmentComponent
+import com.mindorks.bootcamp.instagram.di_hilt.di.UploadImageDialog
 import com.mindorks.bootcamp.instagram.ui.base.BaseFragment
 import com.mindorks.bootcamp.instagram.ui.main.MainSharedViewModel
 import com.mindorks.bootcamp.instagram.ui.progressdialog.ProgressDialogFragment
 import com.mindorks.bootcamp.instagram.utils.log.Logger
-import com.mindorks.paracamera.Camera
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_photo.*
 import java.io.FileNotFoundException
 import javax.inject.Inject
 
-
+@AndroidEntryPoint
 class PhotoFragment : BaseFragment<PhotoViewModel>() {
 
     companion object {
@@ -39,15 +39,11 @@ class PhotoFragment : BaseFragment<PhotoViewModel>() {
     @Inject
     @UploadImageDialog
     lateinit var uploadImageDialog: ProgressDialogFragment
-
-    @Inject
-    lateinit var camera: Camera
+//
+//    @Inject
+//    lateinit var camera: Camera
 
     override fun provideLayoutId(): Int = R.layout.fragment_photo
-
-    override fun injectDependencies(fragmentComponent: FragmentComponent) {
-        fragmentComponent.inject(this)
-    }
 
     override fun setupObservers() {
         super.setupObservers()
@@ -60,7 +56,7 @@ class PhotoFragment : BaseFragment<PhotoViewModel>() {
             if (it) showImageUploadLoader() else hideImageUploadDialog()
         })
 
-        viewModel.post.observe(this, Observer {
+        viewModel.post.observe(this,    Observer {
             it.getIfNotHandled()?.run {
                 mainSharedViewModel.newPost.postValue(this)
                 mainSharedViewModel.onHomeRedirect()
@@ -94,7 +90,7 @@ class PhotoFragment : BaseFragment<PhotoViewModel>() {
 
         view_camera.setOnClickListener {
             try {
-                camera.takePicture()
+//                camera.takePicture()
             } catch (e: Exception) {
                 e.printStackTrace()
             }
@@ -118,9 +114,9 @@ class PhotoFragment : BaseFragment<PhotoViewModel>() {
                         showMessage(R.string.try_again)
                     }
                 }
-                Camera.REQUEST_TAKE_PHOTO -> {
-                    viewModel.onCameraImageTaken { camera.cameraBitmapPath }
-                }
+//                Camera.REQUEST_TAKE_PHOTO -> {
+//                    viewModel.onCameraImageTaken { camera.cameraBitmapPath }
+//                }
             }
         }
     }

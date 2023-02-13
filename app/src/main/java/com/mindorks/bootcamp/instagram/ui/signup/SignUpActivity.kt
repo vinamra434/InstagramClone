@@ -7,15 +7,13 @@ import android.text.TextWatcher
 import android.view.View
 import androidx.lifecycle.Observer
 import com.mindorks.bootcamp.instagram.R
-import com.mindorks.bootcamp.instagram.di.component.ActivityComponent
 import com.mindorks.bootcamp.instagram.ui.base.BaseActivity
 import com.mindorks.bootcamp.instagram.ui.main.MainActivity
 import com.mindorks.bootcamp.instagram.utils.common.Event
-
 import com.mindorks.bootcamp.instagram.utils.common.Status
-import com.mindorks.bootcamp.instagram.utils.log.Logger
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_signup.*
-
+@AndroidEntryPoint
 class SignUpActivity : BaseActivity<SignUpViewModel>() {
 
     companion object {
@@ -23,10 +21,6 @@ class SignUpActivity : BaseActivity<SignUpViewModel>() {
     }
 
     override fun provideLayoutId() = R.layout.activity_signup
-
-    override fun injectDependencies(activityComponent: ActivityComponent) {
-        activityComponent.inject(this)
-    }
 
     override fun setupView(savedInstanceState: Bundle?) {
         et_email.addTextChangedListener(object : TextWatcher {

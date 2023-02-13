@@ -2,8 +2,8 @@ package com.mindorks.bootcamp.instagram.utils.common
 
 import android.content.Context
 import android.graphics.BitmapFactory
-import com.mindorks.paracamera.Camera
-import com.mindorks.paracamera.Utils
+//import com.mindorks.paracamera.Camera
+//import com.mindorks.paracamera.Utils
 import java.io.*
 
 
@@ -18,7 +18,8 @@ object FileUtils {
     fun saveInputStreamToFile(input: InputStream, directory: File, imageName: String, height: Int): File? {
         val temp = File(directory.path + File.separator + "temp\$file\$for\$processing")
         try {
-            val final = File(directory.path + File.separator + imageName + ".${Camera.IMAGE_JPG}")
+//            val final = File(directory.path + File.separator + imageName + ".${Camera.IMAGE_JPG}")
+            val final = File(directory.path + File.separator + imageName + ".jpg")
             val output = FileOutputStream(temp)
             try {
                 val buffer = ByteArray(4 * 1024) // or other buffer size
@@ -28,7 +29,7 @@ object FileUtils {
                     read = input.read(buffer)
                 }
                 output.flush()
-                Utils.saveBitmap(Utils.decodeFile(temp, height), final.path, Camera.IMAGE_JPG, 80)
+//                Utils.saveBitmap(Utils.decodeFile(temp, height), final.path, Camera.IMAGE_JPG, 80)
                 return final
             } finally {
                 output.close()

@@ -16,6 +16,7 @@
 
         <activity
             android:name=".ui.splash.SplashActivity"
+            android:exported="true"
             android:noHistory="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -25,10 +26,18 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".ui.login.LoginActivity" />
-        <activity android:name=".ui.main.MainActivity" />
-        <activity android:name=".ui.editprofile.EditProfileActivity" />
-        <activity android:name=".ui.signup.SignUpActivity" />
+        <activity
+            android:name=".ui.login.LoginActivity"
+            android:exported="true" />
+        <activity
+            android:name=".ui.main.MainActivity"
+            android:exported="true" />
+        <activity
+            android:name=".ui.editprofile.EditProfileActivity"
+            android:exported="true" />
+        <activity
+            android:name=".ui.signup.SignUpActivity"
+            android:exported="true" />
     </application>
 
 </manifest>

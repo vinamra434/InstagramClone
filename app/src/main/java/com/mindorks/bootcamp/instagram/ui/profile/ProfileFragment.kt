@@ -10,25 +10,24 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.mindorks.bootcamp.instagram.R
 import com.mindorks.bootcamp.instagram.data.model.MyPost
-import com.mindorks.bootcamp.instagram.di.component.FragmentComponent
 import com.mindorks.bootcamp.instagram.ui.base.BaseFragment
 import com.mindorks.bootcamp.instagram.ui.editprofile.EditProfileActivity
 import com.mindorks.bootcamp.instagram.ui.editprofile.EditProfileBroadcast
 import com.mindorks.bootcamp.instagram.ui.login.LoginActivity
 import com.mindorks.bootcamp.instagram.ui.main.MainSharedViewModel
-import com.mindorks.bootcamp.instagram.ui.profile.myposts.MyPostsAdapter
-import com.mindorks.bootcamp.instagram.ui.profile.myposts.MyPostDetailSharedViewModel
 import com.mindorks.bootcamp.instagram.ui.postdetail.PostDetailBroadcast
 import com.mindorks.bootcamp.instagram.ui.postdetail.PostDetailFragment
+import com.mindorks.bootcamp.instagram.ui.profile.myposts.MyPostDetailSharedViewModel
+import com.mindorks.bootcamp.instagram.ui.profile.myposts.MyPostsAdapter
 import com.mindorks.bootcamp.instagram.utils.common.ClickListener
 import com.mindorks.bootcamp.instagram.utils.common.Event
 import com.mindorks.bootcamp.instagram.utils.common.GlideHelper
 import com.mindorks.bootcamp.instagram.utils.log.Logger
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_profile.*
-import kotlinx.android.synthetic.main.fragment_profile.progressBar
 import javax.inject.Inject
 
-
+@AndroidEntryPoint
 class ProfileFragment : BaseFragment<ProfileViewModel>(), ClickListener {
 
     companion object {
@@ -62,10 +61,6 @@ class ProfileFragment : BaseFragment<ProfileViewModel>(), ClickListener {
     lateinit var linearLayoutManager: LinearLayoutManager
 
     override fun provideLayoutId(): Int = R.layout.fragment_profile
-
-    override fun injectDependencies(fragmentComponent: FragmentComponent) {
-        fragmentComponent.inject(this)
-    }
 
     override fun setupObservers() {
         super.setupObservers()

@@ -6,6 +6,10 @@ apply plugin: 'kotlin-android-extensions'
 
 apply plugin: 'kotlin-kapt'
 
+apply plugin: 'com.google.dagger.hilt.android'
+
+
+
 android {
     // user the variables like compile_sdk_version to keep the dependencies same throughout the application
     compileSdkVersion rootProject.ext.compile_sdk_version
@@ -53,7 +57,7 @@ dependencies {
     // Android Support Library
     implementation "androidx.appcompat:appcompat:$app_compat_version"
 
-    implementation 'androidx.fragment:fragment:1.2.5'
+    implementation 'androidx.fragment:fragment-ktx:1.5.5'
 
     // Constraint Layout
     implementation "androidx.constraintlayout:constraintlayout:$constraint_version"
@@ -110,10 +114,10 @@ dependencies {
     implementation "com.google.code.gson:gson:$gson_version"
 
     // Camera
-    implementation 'com.mindorks:paracamera:0.2.2'
+//    implementation 'com.mindorks:paracamera:0.2.2'
 
     // Debugging
-    debugImplementation "com.amitshekhar.android:debug-db:$debug_db_version"
+//    debugImplementation "com.amitshekhar.android:debug-db:$debug_db_version"
 
     // Local Unit tests
     testImplementation "junit:junit:$junit_version"
@@ -133,4 +137,11 @@ dependencies {
     kaptAndroidTest "com.google.dagger:dagger-compiler:$dagger_version"
 
     //debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.4'
+
+    implementation "com.google.dagger:hilt-android:2.44"
+    kapt 'com.google.dagger:hilt-android-compiler:2.45'
+}
+
+kapt {
+    correctErrorTypes = true
 }

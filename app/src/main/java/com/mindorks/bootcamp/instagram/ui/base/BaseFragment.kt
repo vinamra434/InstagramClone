@@ -8,10 +8,6 @@ import androidx.annotation.LayoutRes
 import androidx.annotation.StringRes
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import com.mindorks.bootcamp.instagram.InstagramApplication
-import com.mindorks.bootcamp.instagram.di.component.DaggerFragmentComponent
-import com.mindorks.bootcamp.instagram.di.component.FragmentComponent
-import com.mindorks.bootcamp.instagram.di.module.FragmentModule
 import com.mindorks.bootcamp.instagram.utils.display.Toaster
 import com.mindorks.bootcamp.instagram.utils.log.Logger
 import javax.inject.Inject
@@ -23,18 +19,11 @@ abstract class BaseFragment<VM : BaseViewModel> : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         Logger.d("BaseFragment", "onCreate")
-        injectDependencies(buildFragmentComponent())
         super.onCreate(savedInstanceState)
         setupObservers()
         viewModel.onCreate()
     }
 
-    private fun buildFragmentComponent() =
-        DaggerFragmentComponent
-            .builder()
-            .applicationComponent((requireContext().applicationContext as InstagramApplication).applicationComponent)
-            .fragmentModule(FragmentModule(this))
-            .build()
 
 
     override fun onCreateView(
@@ -75,8 +64,6 @@ abstract class BaseFragment<VM : BaseViewModel> : Fragment() {
 
     @LayoutRes
     protected abstract fun provideLayoutId(): Int
-
-    protected abstract fun injectDependencies(fragmentComponent: FragmentComponent)
 
     protected abstract fun setupView(view: View)
 

@@ -1,24 +1,29 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
 buildscript {
-    ext.kotlin_version = '1.4.0'
+    ext.kotlin_version = '1.6.0'
     repositories {
         google()
         jcenter()
         
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:4.0.1'
+        classpath 'com.android.tools.build:gradle:4.2.0'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
     }
 }
 
+plugins {
+    id("com.google.dagger.hilt.android") version "2.44" apply false
+}
+
 allprojects {
     repositories {
         google()
-        jcenter()
+        mavenCentral()
+
     }
 }
 
@@ -30,8 +35,8 @@ task clean(type: Delete) {
 ext {
     // Sdk and Tools
     min_sdk_version = 21
-    target_sdk_version = 28
-    compile_sdk_version = 28
+    target_sdk_version = 31
+    compile_sdk_version = 31
 
     // Core
     app_compat_version = '1.2.0'
@@ -66,12 +71,12 @@ ext {
     dagger_version = '2.28.3'
 
     // Tests
-    junit_version = '4.13'
-    espresso_version = '3.2.0'
+    junit_version = '4.13.2'
+    espresso_version = '3.5.1'
     mockito_version = '2.7.1'
     core_testing_version = '1.1.1'
-    test_runner_version = '1.2.0'
-    test_ext_runner_version = '1.1.1'
+    test_runner_version = '1.5.2'
+    test_ext_runner_version = '1.1.5'
     hamcrest_version = '2.2'
-    fragment_version = '1.2.5'
+    fragment_version = '1.5.5'
 }

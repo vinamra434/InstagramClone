@@ -4,19 +4,17 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.View
 import androidx.lifecycle.Observer
 import com.mindorks.bootcamp.instagram.R
-import com.mindorks.bootcamp.instagram.di.component.ActivityComponent
 import com.mindorks.bootcamp.instagram.ui.base.BaseActivity
 import com.mindorks.bootcamp.instagram.ui.main.MainActivity
 import com.mindorks.bootcamp.instagram.ui.signup.SignUpActivity
 import com.mindorks.bootcamp.instagram.utils.common.Event
 import com.mindorks.bootcamp.instagram.utils.common.Status
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_login.*
-import java.util.logging.Logger
-
+@AndroidEntryPoint
 class LoginActivity : BaseActivity<LoginViewModel>() {
 
     companion object {
@@ -25,9 +23,6 @@ class LoginActivity : BaseActivity<LoginViewModel>() {
 
     override fun provideLayoutId(): Int = R.layout.activity_login
 
-    override fun injectDependencies(activityComponent: ActivityComponent) {
-        activityComponent.inject(this)
-    }
 
     override fun setupView(savedInstanceState: Bundle?) {
 

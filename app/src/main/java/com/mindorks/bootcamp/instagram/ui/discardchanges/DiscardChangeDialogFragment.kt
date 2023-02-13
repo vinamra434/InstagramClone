@@ -2,10 +2,11 @@ package com.mindorks.bootcamp.instagram.ui.discardchanges
 
 import android.os.Bundle
 import com.mindorks.bootcamp.instagram.R
-import com.mindorks.bootcamp.instagram.di.component.DialogFragmentComponent
 import com.mindorks.bootcamp.instagram.ui.base.BaseDialogFragment
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_dialog_discard_change.*
 
+@AndroidEntryPoint
 class DiscardChangeDialogFragment : BaseDialogFragment<DiscardChangeViewModel>() {
 
     companion object {
@@ -19,9 +20,6 @@ class DiscardChangeDialogFragment : BaseDialogFragment<DiscardChangeViewModel>()
         }
     }
 
-    override fun injectDependencies(dialogFragmentComponent: DialogFragmentComponent) {
-        dialogFragmentComponent.inject(this)
-    }
 
     override fun getCancelable() = true
 

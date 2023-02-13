@@ -5,14 +5,13 @@ import android.os.Bundle
 import android.os.Handler
 import androidx.lifecycle.Observer
 import com.mindorks.bootcamp.instagram.R
-import com.mindorks.bootcamp.instagram.di.component.ActivityComponent
 import com.mindorks.bootcamp.instagram.ui.base.BaseActivity
 import com.mindorks.bootcamp.instagram.ui.login.LoginActivity
 import com.mindorks.bootcamp.instagram.ui.main.MainActivity
 import com.mindorks.bootcamp.instagram.utils.common.Event
-import com.mindorks.bootcamp.instagram.utils.log.Logger
-import javax.inject.Inject
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class SplashActivity : BaseActivity<SplashViewModel>() {
 
     companion object {
@@ -20,10 +19,6 @@ class SplashActivity : BaseActivity<SplashViewModel>() {
     }
 
     override fun provideLayoutId(): Int = R.layout.activity_splash
-
-    override fun injectDependencies(activityComponent: ActivityComponent) {
-        activityComponent.inject(this)
-    }
 
     override fun setupView(savedInstanceState: Bundle?) {
     }

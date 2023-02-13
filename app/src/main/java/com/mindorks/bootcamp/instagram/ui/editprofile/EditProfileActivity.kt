@@ -1,5 +1,6 @@
 package com.mindorks.bootcamp.instagram.ui.editprofile
 
+//import com.mindorks.paracamera.Camera
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
@@ -11,9 +12,8 @@ import android.view.ViewGroup
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.mindorks.bootcamp.instagram.R
-import com.mindorks.bootcamp.instagram.di.SavingProfileDialog
-import com.mindorks.bootcamp.instagram.di.UploadImageDialog
-import com.mindorks.bootcamp.instagram.di.component.ActivityComponent
+import com.mindorks.bootcamp.instagram.di_hilt.di.SavingProfileDialog
+import com.mindorks.bootcamp.instagram.di_hilt.di.UploadImageDialog
 import com.mindorks.bootcamp.instagram.ui.base.BaseActivity
 import com.mindorks.bootcamp.instagram.ui.discardchanges.DiscardChangeDialogFragment
 import com.mindorks.bootcamp.instagram.ui.discardchanges.DiscardChangeViewModel
@@ -23,20 +23,22 @@ import com.mindorks.bootcamp.instagram.ui.progressdialog.ProgressDialogFragment
 import com.mindorks.bootcamp.instagram.utils.common.GlideHelper
 import com.mindorks.bootcamp.instagram.utils.common.Status
 import com.mindorks.bootcamp.instagram.utils.log.Logger
-import com.mindorks.paracamera.Camera
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_edit_profile.*
 import kotlinx.android.synthetic.main.custom_toolbar.*
 import kotlinx.android.synthetic.main.item_view_post.view.*
 import java.io.FileNotFoundException
 import javax.inject.Inject
-
-class EditProfileActivity : BaseActivity<EditProfileViewModel>() {  companion object {
+@AndroidEntryPoint
+class EditProfileActivity :
+    BaseActivity<EditProfileViewModel>() {
+    companion object {
         const val TAG = "EditProfileActivity"
         const val RESULT_GALLERY_IMG = 1001
     }
-
-    @Inject
-    lateinit var camera: Camera
+//
+//    @Inject
+//    lateinit var camera: Camera
 
     @Inject
     lateinit var editProfileBroadcast: EditProfileBroadcast
@@ -62,10 +64,6 @@ class EditProfileActivity : BaseActivity<EditProfileViewModel>() {  companion ob
     lateinit var imageSelectionViewModel: ImageSelectionViewModel
 
     override fun provideLayoutId() = R.layout.activity_edit_profile
-
-    override fun injectDependencies(activityComponent: ActivityComponent) {
-        activityComponent.inject(this)
-    }
 
     override fun setupView(savedInstanceState: Bundle?) {
         //set photo, name and tag line and email of user and set click on done (right) icon
@@ -191,7 +189,7 @@ class EditProfileActivity : BaseActivity<EditProfileViewModel>() {  companion ob
         imageSelectionViewModel.onCameraSelected.observe(this, {
             it.getIfNotHandled()?.run {
                 try {
-                    camera.takePicture()
+//                    camera.takePicture()
                 } catch (e: Exception) {
                     e.printStackTrace()
                 }
@@ -255,9 +253,9 @@ class EditProfileActivity : BaseActivity<EditProfileViewModel>() {  companion ob
                         showMessage(R.string.try_again)
                     }
                 }
-                Camera.REQUEST_TAKE_PHOTO -> {
-                    viewModel.onCameraImageTaken { camera.cameraBitmapPath }
-                }
+//                Camera.REQUEST_TAKE_PHOTO -> {
+//                    viewModel.onCameraImageTaken { camera.cameraBitmapPath }
+//                }
             }
         }
     }

@@ -3,16 +3,16 @@ package com.mindorks.bootcamp.instagram.ui.main
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import com.mindorks.bootcamp.instagram.R
-import com.mindorks.bootcamp.instagram.di.component.ActivityComponent
 import com.mindorks.bootcamp.instagram.ui.base.BaseActivity
 import com.mindorks.bootcamp.instagram.ui.home.HomeFragment
 import com.mindorks.bootcamp.instagram.ui.photo.PhotoFragment
 import com.mindorks.bootcamp.instagram.ui.postdetail.PostDetailFragment
 import com.mindorks.bootcamp.instagram.ui.profile.ProfileFragment
 import com.mindorks.bootcamp.instagram.utils.log.Logger
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_main.*
 import javax.inject.Inject
-
+@AndroidEntryPoint
 class MainActivity : BaseActivity<MainViewModel>() {
 
     companion object {
@@ -26,11 +26,6 @@ class MainActivity : BaseActivity<MainViewModel>() {
     private var activeFragment: Fragment? = null
 
     override fun provideLayoutId(): Int = R.layout.activity_main
-
-    override fun injectDependencies(activityComponent: ActivityComponent) {
-        Logger.d(TAG, "injectDependencies")
-        activityComponent.inject(this)
-    }
 
     override fun setupView(savedInstanceState: Bundle?) {
         Logger.d(TAG, "setupView")

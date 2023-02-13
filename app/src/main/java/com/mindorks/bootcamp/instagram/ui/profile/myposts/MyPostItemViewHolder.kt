@@ -7,7 +7,6 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.mindorks.bootcamp.instagram.R
 import com.mindorks.bootcamp.instagram.data.model.MyPost
-import com.mindorks.bootcamp.instagram.di.component.ViewHolderComponent
 import com.mindorks.bootcamp.instagram.ui.base.BaseItemViewHolder
 import com.mindorks.bootcamp.instagram.utils.common.ClickListener
 import com.mindorks.bootcamp.instagram.utils.common.GlideHelper
@@ -20,10 +19,6 @@ class MyPostItemViewHolder(
     R.layout.item_view_my_post,
     parent
 ) {
-
-    override fun injectDependencies(viewHolderComponent: ViewHolderComponent) {
-        viewHolderComponent.inject(this)
-    }
 
     override fun setupObservers() {
         super.setupObservers()

@@ -3,10 +3,11 @@ package com.mindorks.bootcamp.instagram.ui.progressdialog
 import android.os.Bundle
 import androidx.annotation.StringRes
 import com.mindorks.bootcamp.instagram.R
-import com.mindorks.bootcamp.instagram.di.component.DialogFragmentComponent
 import com.mindorks.bootcamp.instagram.ui.base.BaseDialogFragment
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_dialog_loading.*
 
+@AndroidEntryPoint
 class ProgressDialogFragment : BaseDialogFragment<ProgressViewModel>() {
 
     companion object {
@@ -21,10 +22,6 @@ class ProgressDialogFragment : BaseDialogFragment<ProgressViewModel>() {
             fragment.arguments = args
             return fragment
         }
-    }
-
-    override fun injectDependencies(dialogFragmentComponent: DialogFragmentComponent) {
-        dialogFragmentComponent.inject(this)
     }
 
     override fun getCancelable() = false

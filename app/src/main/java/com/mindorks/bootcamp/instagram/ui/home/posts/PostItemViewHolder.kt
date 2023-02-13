@@ -9,7 +9,6 @@ import com.bumptech.glide.RequestBuilder
 import com.bumptech.glide.request.RequestOptions
 import com.mindorks.bootcamp.instagram.R
 import com.mindorks.bootcamp.instagram.data.model.Post
-import com.mindorks.bootcamp.instagram.di.component.ViewHolderComponent
 import com.mindorks.bootcamp.instagram.ui.base.BaseItemViewHolder
 import com.mindorks.bootcamp.instagram.ui.postdetail.PostDetailBroadcast
 import com.mindorks.bootcamp.instagram.utils.common.GlideHelper
@@ -25,11 +24,6 @@ class PostItemViewHolder(
 ) {
     @Inject
     lateinit var postDetailBroadcast: PostDetailBroadcast
-
-
-    override fun injectDependencies(viewHolderComponent: ViewHolderComponent) {
-        viewHolderComponent.inject(this)
-    }
 
     override fun setupObservers() {
         super.setupObservers()

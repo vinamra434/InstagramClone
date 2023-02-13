@@ -2,10 +2,11 @@ package com.mindorks.bootcamp.instagram.ui.imageselection
 
 import android.os.Bundle
 import com.mindorks.bootcamp.instagram.R
-import com.mindorks.bootcamp.instagram.di.component.DialogFragmentComponent
 import com.mindorks.bootcamp.instagram.ui.base.BaseDialogFragment
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_dialog_image_selection.*
 
+@AndroidEntryPoint
 class ImageSelectionDialogFragment : BaseDialogFragment<ImageSelectionViewModel>() {
 
     companion object {
@@ -19,9 +20,6 @@ class ImageSelectionDialogFragment : BaseDialogFragment<ImageSelectionViewModel>
         }
     }
 
-    override fun injectDependencies(dialogFragmentComponent: DialogFragmentComponent) {
-        dialogFragmentComponent.inject(this)
-    }
 
     override fun getCancelable() = true
 

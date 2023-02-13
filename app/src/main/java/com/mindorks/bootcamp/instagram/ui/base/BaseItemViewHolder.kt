@@ -10,10 +10,6 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LifecycleRegistry
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.RecyclerView
-import com.mindorks.bootcamp.instagram.InstagramApplication
-import com.mindorks.bootcamp.instagram.di.component.DaggerViewHolderComponent
-import com.mindorks.bootcamp.instagram.di.component.ViewHolderComponent
-import com.mindorks.bootcamp.instagram.di.module.ViewHolderModule
 import com.mindorks.bootcamp.instagram.utils.display.Toaster
 import com.mindorks.bootcamp.instagram.utils.log.Logger
 import javax.inject.Inject
@@ -49,7 +45,6 @@ abstract class BaseItemViewHolder<T : Any, VM : BaseItemViewModel<T>>(
     /*https://developer.android.com/topic/libraries/architecture/lifecycle*/
     protected fun onCreate() {
         Logger.d("BaseItemViewHolder", "onCreate")
-        injectDependencies(buildViewHolderComponent())
         lifecycleRegistry.currentState = (Lifecycle.State.INITIALIZED)
         lifecycleRegistry.currentState = (Lifecycle.State.CREATED)
         setupObservers()
@@ -76,12 +71,6 @@ abstract class BaseItemViewHolder<T : Any, VM : BaseItemViewModel<T>>(
         lifecycleRegistry.currentState = (Lifecycle.State.DESTROYED)
     }
 
-    private fun buildViewHolderComponent() =
-        DaggerViewHolderComponent
-            .builder()
-            .applicationComponent((itemView.context.applicationContext as InstagramApplication).applicationComponent)
-            .viewHolderModule(ViewHolderModule(this))
-            .build()
 
     fun showMessage(message: String) = Toaster.show(itemView.context, message)
 
@@ -96,8 +85,6 @@ abstract class BaseItemViewHolder<T : Any, VM : BaseItemViewModel<T>>(
             it.data?.run { showMessage(this) }
         })
     }
-
-    protected abstract fun injectDependencies(viewHolderComponent: ViewHolderComponent)
 
     abstract fun setupView(view: View)
 

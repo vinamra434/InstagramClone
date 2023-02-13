@@ -6,10 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.LayoutRes
 import androidx.fragment.app.DialogFragment
-import com.mindorks.bootcamp.instagram.InstagramApplication
-import com.mindorks.bootcamp.instagram.di.component.DaggerDialogFragmentComponent
-import com.mindorks.bootcamp.instagram.di.component.DialogFragmentComponent
-import com.mindorks.bootcamp.instagram.di.module.DialogFragmentModule
 import javax.inject.Inject
 
 abstract class BaseDialogFragment<VM : BaseViewModel> : DialogFragment() {
@@ -18,18 +14,7 @@ abstract class BaseDialogFragment<VM : BaseViewModel> : DialogFragment() {
     lateinit var viewModel: VM
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        injectDependencies(buildDialogFragmentComponent());
         super.onCreate(savedInstanceState)
-    }
-
-    abstract fun injectDependencies(dialogFragmentComponent: DialogFragmentComponent)
-
-    private fun buildDialogFragmentComponent(): DialogFragmentComponent {
-        return DaggerDialogFragmentComponent
-            .builder()
-            .applicationComponent((activity?.application as InstagramApplication).applicationComponent)
-            .dialogFragmentModule(DialogFragmentModule(this))
-            .build()
     }
 
     override fun onCreateView(

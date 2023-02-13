@@ -7,11 +7,7 @@ import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.lifecycle.Observer
-import com.mindorks.bootcamp.instagram.InstagramApplication
 import com.mindorks.bootcamp.instagram.R
-import com.mindorks.bootcamp.instagram.di.component.ActivityComponent
-import com.mindorks.bootcamp.instagram.di.component.DaggerActivityComponent
-import com.mindorks.bootcamp.instagram.di.module.ActivityModule
 import com.mindorks.bootcamp.instagram.utils.display.Toaster
 import com.mindorks.bootcamp.instagram.utils.log.Logger
 import kotlinx.android.synthetic.main.activity_base.*
@@ -24,7 +20,6 @@ abstract class BaseActivity<VM : BaseViewModel> : AppCompatActivity() {
     lateinit var viewModel: VM
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        injectDependencies(buildActivityComponent())
         super.onCreate(savedInstanceState)
         setContentView(provideLayoutId())
         setupObservers()
@@ -32,12 +27,6 @@ abstract class BaseActivity<VM : BaseViewModel> : AppCompatActivity() {
         if (savedInstanceState == null) viewModel.onCreate() else Logger.d("activity", "device rotated")
     }
 
-    private fun buildActivityComponent() =
-        DaggerActivityComponent
-            .builder()
-            .applicationComponent((application as InstagramApplication).applicationComponent)
-            .activityModule(ActivityModule(this))
-            .build()
 
     protected open fun setupObservers() {
         viewModel.messageString.observe(this, Observer {
@@ -63,8 +52,6 @@ abstract class BaseActivity<VM : BaseViewModel> : AppCompatActivity() {
 
     @LayoutRes
     protected abstract fun provideLayoutId(): Int
-
-    protected abstract fun injectDependencies(activityComponent: ActivityComponent)
 
     protected abstract fun setupView(savedInstanceState: Bundle?)
 

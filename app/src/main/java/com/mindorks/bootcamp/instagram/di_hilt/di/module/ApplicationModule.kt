@@ -1,4 +1,4 @@
-package com.mindorks.bootcamp.instagram.di.module
+package com.mindorks.bootcamp.instagram.di_hilt.di.module
 
 import android.app.Application
 import android.content.Context
@@ -6,15 +6,11 @@ import android.content.SharedPreferences
 import androidx.room.Room
 import com.mindorks.bootcamp.instagram.BuildConfig
 import com.mindorks.bootcamp.instagram.InstagramApplication
-import com.mindorks.bootcamp.instagram.R
 import com.mindorks.bootcamp.instagram.data.local.db.DatabaseService
 import com.mindorks.bootcamp.instagram.data.remote.NetworkService
 import com.mindorks.bootcamp.instagram.data.remote.Networking
-import com.mindorks.bootcamp.instagram.di.ApplicationContext
-import com.mindorks.bootcamp.instagram.di.SavingProfileDialog
-import com.mindorks.bootcamp.instagram.di.TempDirectory
-import com.mindorks.bootcamp.instagram.di.UploadImageDialog
-import com.mindorks.bootcamp.instagram.ui.progressdialog.ProgressDialogFragment
+import com.mindorks.bootcamp.instagram.di_hilt.di.ApplicationContext
+import com.mindorks.bootcamp.instagram.di_hilt.di.TempDirectory
 import com.mindorks.bootcamp.instagram.utils.common.FileUtils
 import com.mindorks.bootcamp.instagram.utils.network.NetworkHelper
 import com.mindorks.bootcamp.instagram.utils.network.NetworkHelperImpl
@@ -22,26 +18,32 @@ import com.mindorks.bootcamp.instagram.utils.rx.RxSchedulerProvider
 import com.mindorks.bootcamp.instagram.utils.rx.SchedulerProvider
 import dagger.Module
 import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.components.SingletonComponent
 import io.reactivex.disposables.CompositeDisposable
 import javax.inject.Singleton
+
 /*
 * parent module of app which provides dependencies throughtout the app*/
 
+@InstallIn(SingletonComponent::class)
 @Module
-class ApplicationModule(private val application: InstagramApplication) {
+object ApplicationModule {
     @Provides
     @Singleton
-    fun provideApplication(): Application = application
+    fun provideApplication(@ApplicationContext application: InstagramApplication): Application =
+        application
 
     @Provides
     @Singleton
     @ApplicationContext
-    fun provideContext(): Context = application
+    fun provideContext(@ApplicationContext application: InstagramApplication): Context = application
 
     @Provides
     @Singleton
     @TempDirectory
-    fun provideTempDirectory() = FileUtils.getDirectory(application, "temp")
+    fun provideTempDirectory(@ApplicationContext application: InstagramApplication) =
+        FileUtils.getDirectory(application, "temp")
 
     @Provides
     @Singleton
@@ -49,7 +51,7 @@ class ApplicationModule(private val application: InstagramApplication) {
 
     @Provides
     @Singleton
-    fun provideSharedPreferences(): SharedPreferences =
+    fun provideSharedPreferences(@ApplicationContext application: InstagramApplication): SharedPreferences =
         application.getSharedPreferences("instagram-project", Context.MODE_PRIVATE)
 
     /**
@@ -58,7 +60,7 @@ class ApplicationModule(private val application: InstagramApplication) {
      */
     @Provides
     @Singleton
-    fun provideDatabaseService(): DatabaseService =
+    fun provideDatabaseService(@ApplicationContext application: InstagramApplication): DatabaseService =
         Room.databaseBuilder(
             application, DatabaseService::class.java,
             "bootcamp-instagram-project-db"
@@ -66,9 +68,8 @@ class ApplicationModule(private val application: InstagramApplication) {
 
     @Provides
     @Singleton
-    fun provideNetworkService(): NetworkService =
-        Networking.
-        create(
+    fun provideNetworkService(@ApplicationContext application: InstagramApplication): NetworkService =
+        Networking.create(
             BuildConfig.API_KEY,
             BuildConfig.BASE_URL,
             application.cacheDir,
@@ -77,7 +78,8 @@ class ApplicationModule(private val application: InstagramApplication) {
 
     @Singleton
     @Provides
-    fun provideNetworkHelper(): NetworkHelper = NetworkHelperImpl(application)
+    fun provideNetworkHelper(@ApplicationContext application: InstagramApplication): NetworkHelper =
+        NetworkHelperImpl(application)
 
     /**
      * each time new instance is provided

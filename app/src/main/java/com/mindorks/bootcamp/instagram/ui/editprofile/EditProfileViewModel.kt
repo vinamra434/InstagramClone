@@ -15,12 +15,15 @@ import com.mindorks.bootcamp.instagram.utils.common.*
 import com.mindorks.bootcamp.instagram.utils.log.Logger
 import com.mindorks.bootcamp.instagram.utils.network.NetworkHelper
 import com.mindorks.bootcamp.instagram.utils.rx.SchedulerProvider
+import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
 import java.io.File
 import java.io.InputStream
+import javax.inject.Inject
 
-class EditProfileViewModel(
+@HiltViewModel
+class EditProfileViewModel @Inject constructor(
     schedulerProvider: SchedulerProvider,
     compositeDisposable: CompositeDisposable,
     networkHelper: NetworkHelper,

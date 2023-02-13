@@ -1,4 +1,4 @@
-package com.mindorks.bootcamp.instagram.di
+package com.mindorks.bootcamp.instagram.di_hilt.di
 
 import javax.inject.Qualifier
 

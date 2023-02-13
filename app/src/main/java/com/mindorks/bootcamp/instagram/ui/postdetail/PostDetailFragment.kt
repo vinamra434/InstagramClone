@@ -9,15 +9,17 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.RequestBuilder
 import com.bumptech.glide.request.RequestOptions
 import com.mindorks.bootcamp.instagram.R
-import com.mindorks.bootcamp.instagram.di.component.FragmentComponent
 import com.mindorks.bootcamp.instagram.ui.base.BaseFragment
 import com.mindorks.bootcamp.instagram.ui.profile.myposts.MyPostDetailSharedViewModel
 import com.mindorks.bootcamp.instagram.utils.common.Event
 import com.mindorks.bootcamp.instagram.utils.common.GlideHelper
 import com.mindorks.bootcamp.instagram.utils.log.Logger
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.custom_toolbar.*
 import kotlinx.android.synthetic.main.fragment_post_detail.*
 import javax.inject.Inject
+
+@AndroidEntryPoint
 
 class PostDetailFragment : BaseFragment<PostDetailViewModel>() {
 
@@ -43,10 +45,6 @@ class PostDetailFragment : BaseFragment<PostDetailViewModel>() {
     lateinit var postDetailBroadcast: PostDetailBroadcast
 
     override fun provideLayoutId() = R.layout.fragment_post_detail
-
-    override fun injectDependencies(fragmentComponent: FragmentComponent) {
-        fragmentComponent.inject(this)
-    }
 
     override fun setupView(view: View) {
         tb_start_image.setBackgroundResource(R.drawable.ic_back)

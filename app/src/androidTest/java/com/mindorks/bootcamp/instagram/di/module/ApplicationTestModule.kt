@@ -9,8 +9,7 @@ import com.mindorks.bootcamp.instagram.data.local.db.DatabaseService
 import com.mindorks.bootcamp.instagram.data.remote.FakeNetworkService
 import com.mindorks.bootcamp.instagram.data.remote.NetworkService
 import com.mindorks.bootcamp.instagram.data.remote.Networking
-import com.mindorks.bootcamp.instagram.di.ApplicationContext
-import com.mindorks.bootcamp.instagram.di.TempDirectory
+import com.mindorks.bootcamp.instagram.di_hilt.di.ApplicationContext
 import com.mindorks.bootcamp.instagram.utils.common.FileUtils
 import com.mindorks.bootcamp.instagram.utils.network.FakeNetworkHelperImpl
 import com.mindorks.bootcamp.instagram.utils.network.NetworkHelper
