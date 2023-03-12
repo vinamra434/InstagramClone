@@ -15,6 +15,7 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.FragmentComponent
+import io.reactivex.processors.PublishProcessor
 
 @InstallIn(FragmentComponent::class)
 @Module
@@ -53,5 +54,8 @@ object FragmentModule {
 
     @Provides
     fun provideEmptyPosts() = arrayListOf<Post>()
+
+    @Provides
+    fun providePublishProcessor() = PublishProcessor.create<Pair<String?, String?>>()
 
 }
