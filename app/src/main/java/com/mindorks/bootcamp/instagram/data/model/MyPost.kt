@@ -5,7 +5,7 @@ import java.util.*
 
 data class MyPost(
     @SerializedName("createdAt")
-    val createdAtsss: Date,
+    val createdAt: Date,
     @SerializedName("id")
     val id: String,
     @SerializedName("imgHeight")
